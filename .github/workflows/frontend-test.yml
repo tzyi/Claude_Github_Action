@@ -15,6 +15,10 @@ jobs:
   frontend-test:
     name: 前端單元測試與檢查
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./frontend
     
     steps:
       # 步驟 1: 檢出程式碼
@@ -27,9 +31,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-      
-      - run: npm ci
-        working-directory: ./frontend
+          cache-dependency-path: frontend/package-lock.json
       
       # 步驟 3: 安裝前端依賴
       - name: 安裝 npm 依賴
