@@ -130,7 +130,7 @@ describe('App Component', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('無法載入縣市資料，請確認後端服務是否啟動。')
+        screen.getByText(/無法載入縣市資料，請確認後端服務是否啟動。/)
       ).toBeInTheDocument();
     });
   });
@@ -150,7 +150,7 @@ describe('App Component', () => {
     await user.selectOptions(select, '台北市');
 
     await waitFor(() => {
-      expect(screen.getByText('無法載入散步地點資料。')).toBeInTheDocument();
+      expect(screen.getByText(/無法載入散步地點資料。/)).toBeInTheDocument();
     });
   });
 
@@ -177,6 +177,6 @@ describe('App Component', () => {
     mockedApi.fetchCities.mockResolvedValueOnce(mockCities);
 
     render(<App />);
-    expect(screen.getByText('帶著你的毛孩，出發探索吧！')).toBeInTheDocument();
+    expect(screen.getByText(/帶著你的毛孩，出發探索吧！/)).toBeInTheDocument();
   });
 });

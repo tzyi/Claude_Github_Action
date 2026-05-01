@@ -62,7 +62,7 @@ describe('API Functions', () => {
 
       expect(result).toEqual(mockResponse);
       expect(mockedAxios.get).toHaveBeenCalledWith(
-        'http://localhost:5000/api/spots/台北市'
+        'http://localhost:5000/api/spots/%E5%8F%B0%E5%8C%97%E5%B8%82'
       );
     });
 
@@ -88,7 +88,7 @@ describe('API Functions', () => {
       await fetchSpotsByCity('台中市');
 
       expect(mockedAxios.get).toHaveBeenCalledWith(
-        'http://localhost:5000/api/spots/台中市'
+        'http://localhost:5000/api/spots/%E5%8F%B0%E4%B8%AD%E5%B8%82'
       );
     });
   });
