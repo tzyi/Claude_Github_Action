@@ -28,6 +28,9 @@ jobs:
           node-version: '18'
           cache: 'npm'
       
+      - run: npm ci
+        working-directory: ./frontend
+      
       # 步驟 3: 安裝前端依賴
       - name: 安裝 npm 依賴
         working-directory: ./frontend
