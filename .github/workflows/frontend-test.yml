@@ -1,0 +1,58 @@
+name: 前端測試
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-test.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  frontend-test:
+    name: 前端單元測試與檢查
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 步驟 1: 檢出程式碼
+      - name: 檢出程式碼
+        uses: actions/checkout@v3
+      
+      # 步驟 2: 安裝 Node.js
+      - name: 設定 Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      # 步驟 3: 安裝前端依賴
+      - name: 安裝 npm 依賴
+        working-directory: ./frontend
+        run: npm install
+      
+      # 步驟 4: 執行 TypeScript 型別檢查
+      - name: TypeScript 型別檢查
+        working-directory: ./frontend
+        run: npm run type-check
+      
+      # 步驟 5: 執行 ESLint 程式碼風格檢查
+      - name: ESLint 程式碼檢查
+        working-directory: ./frontend
+        run: npm run lint
+      
+      # 步驟 6: 執行單元測試
+      - name: 執行單元測試
+        working-directory: ./frontend
+        run: npm run test -- --coverage
+      
+      # 步驟 7: 上傳測試覆蓋報告（可選）
+      - name: 上傳測試覆蓋報告
+        if: always()
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./frontend/coverage/coverage-final.json
+          flags: frontend
+          fail_ci_if_error: false
