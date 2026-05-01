@@ -27,7 +27,11 @@ Claude_Github_Action/
 
 ```
 cd backend
-pip install -r requirements.txt
+
+uv venv
+. venv/bin/activate
+uv pip sync requirements.txt
+
 python app.py
 
 ```
@@ -41,3 +45,49 @@ npm run dev
 ```
 
 開啟 http://localhost:5173 即可使用。選擇縣市後會呼叫 Flask API 並顯示該縣市的散步地點卡片，每張卡片包含圖片、星等評分、地址、描述與標籤。
+
+
+# 測試
+
+## 後端測試（pytest）：
+
+```
+cd backend
+# 安裝依賴
+uv pip install -r requirements.txt
+
+# 執行所有測試
+pytest
+
+# 執行特定測試檔案
+pytest test_app.py
+
+# 執行特定測試類別
+pytest test_app.py::TestGetCities
+
+# 顯示詳細輸出
+pytest -v
+
+# 顯示覆蓋率
+pytest --cov=app test_app.py
+```
+
+## 前端測試（Vitest）：
+
+```
+cd frontend
+# 安裝依賴
+npm install
+
+# 執行所有測試
+npm test
+
+# 監視模式（自動重新執行）
+npm test -- --watch
+
+# 顯示 UI 測試界面
+npm run test:ui
+
+# 生成覆蓋率報告
+npm run test:coverage
+```
